@@ -16,7 +16,7 @@ public class MapChunked<T> implements Map<T> {
       // lower
       int subListSize = Math.min(itemsTotal - itemsProcessed, itemsPerThread);
       List<T> subList = list.subList(itemsProcessed,
-                                     itemsProcessed + subListSize
+                                     itemsProcessed + subListSize);
       Thread thread = new Thread(new MapRunnable<T>(new MapParallel<T>(),
                                                     mutation, subList));
       thread.start();

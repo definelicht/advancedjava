@@ -1,3 +1,4 @@
+import assignment1.AggregationTest;
 import assignment1.CombinationTest;
 import assignment1.MapTest;
 
@@ -7,7 +8,8 @@ public class Assignment1Test {
 
     org.junit.runner.JUnitCore.main(
       CombinationTest.class.getName(),
-      MapTest.class.getName()
+      MapTest.class.getName(),
+      AggregationTest.class.getName()
     );
 
   }
