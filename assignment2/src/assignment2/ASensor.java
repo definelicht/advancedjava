@@ -14,27 +14,31 @@ public class ASensor implements Sensor, Runnable {
 
 	/** java.util.Random is thread safe */
 	public SensorReading generateSensorReading() {
-		float humidity    = 50 + 20*random.nextGaussian(); // Mean 50, std 20
-		float temperature = 20 + 10*random.nextGaussian(); // Mean 20, std 10
-		return new SensorReading(humidity, temperature);
+		double humidity    = 50. + 50.*random.nextGaussian();
+		double temperature = 20. + 50.*random.nextGaussian();
+		return new SensorReading((float)humidity, (float)temperature);
 	}
 
 	public void run() {
-		while (true) {
-			SensorReading reading = generateSensorReading();
-			monitorsLock.lock();
-			try {
-				for (Monitor sm : monitors) {
-					// Needs to acquire lock to modify reading table of monitor, but
-					// should otherwise return quickly
-					sm.pushReading(reading);
+		try {
+			while (true) {
+				SensorReading reading = generateSensorReading();
+				monitorsLock.lock();
+				try {
+					for (Monitor sm : monitors) {
+						// Needs to acquire lock to modify reading table of monitor, but
+						// should otherwise return quickly
+						sm.pushReading(reading);
+					}
+				} catch (NullPointerException e) {
+					// TODO: block and wait for registerMonitor to notify
+				} finally {
+					monitorsLock.unlock();
 				}
-			} catch (NullPointerException e) {
-				// TODO: block and wait for registerMonitor to notify
-			} finally {
-				monitorsLock.unlock();
+				Thread.sleep(1000);
 			}
-			Thread.sleep(1000); // Chill for a sec
+		} catch (InterruptedException e) {
+			// Just return
 		}
 	}
 

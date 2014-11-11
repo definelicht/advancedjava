@@ -30,7 +30,7 @@ public class AMonitor implements Monitor, Runnable {
 		try {
 			readings.add(sensorInput);
 			// If any threads are waiting for readings, wake them up
-			newReading.notify();
+			newReading.signalAll();
 		} finally {
 			readingsLock.unlock();
 		}
@@ -64,9 +64,9 @@ public class AMonitor implements Monitor, Runnable {
 		if (temperature >= 10 || humidity >= 50) discomfortLevel = 1;
 		subscribersLock.lock();
 		try {
-			for (SubscriberRegistration s : subscriber) {
+			for (SubscriberRegistration s : subscribers) {
 				if (discomfortLevel >= s.getDiscomfortLevel()) {
-				  s.pushDiscomfortWarning(discomfortLevel);
+				  s.getSubscriber().pushDiscomfortWarning(discomfortLevel);
 			  }
 			}
 		} finally {
@@ -85,7 +85,7 @@ public class AMonitor implements Monitor, Runnable {
 	}
 
 	@Override
-	public SensorReading getSensorReading() {
+	public SensorReading getSensorReading() throws InterruptedException {
 		readingsLock.lock();
 		try {
 			// If no new readings are present, go to sleep and wait for a sensor to
@@ -101,9 +101,13 @@ public class AMonitor implements Monitor, Runnable {
 
 	public void run() {
 		// Set the first
-		while (true) {
-			SensorReading sensorInput = getSensorReading();
-			processReading(sensorInput);
+		try {
+			while (true) {
+				SensorReading sensorInput = getSensorReading();
+				processReading(sensorInput);
+			}
+		} catch (InterruptedException e) {
+			// Just stop execution
 		}
 	}
 
