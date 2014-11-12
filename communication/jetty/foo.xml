@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<list>
+	<communication.jetty.ExtendedPerson>
+		<id>12</id>
+		<name>Tom</name>
+		<emails>
+			<string>tom@gmail.com</string>
+			<string>tom@yahoo.com</string>
+		</emails>
+	</communication.jetty.ExtendedPerson>
+	<communication.jetty.ExtendedPerson>
+		<id>15</id>
+		<name>Ben</name>
+		<emails>
+			<string>ben@gmail.com</string>
+			<string>ben@yahoo.com</string>
+		</emails>
+	</communication.jetty.ExtendedPerson>
+</list>
