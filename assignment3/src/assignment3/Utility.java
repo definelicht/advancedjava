@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package assignment3;
 
@@ -15,9 +15,9 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * Helper class to provide utility methods of reading the department and server
  * url mappings
- * 
+ *
  * @author bonii
- * 
+ *
  */
 public final class Utility {
 
@@ -26,10 +26,12 @@ public final class Utility {
 	 */
 	public static Map<Integer, String> getDepartmentToServerURLMapping(
 			String filePath) throws FileNotFoundException {
-		Map<String, List<Integer>> serverURLToDepartmentMap = getServerURLToDepartmentMapping(filePath);
+		Map<String, List<Integer>> serverURLToDepartmentMap =
+		    getServerURLToDepartmentMapping(filePath);
 
 		// Now construct a reverse map
-		Map<Integer, String> departmentToServerURLMap = new ConcurrentHashMap<Integer, String>();
+		Map<Integer, String> departmentToServerURLMap =
+		    new ConcurrentHashMap<Integer, String>();
 		for (String serverURL : serverURLToDepartmentMap.keySet()) {
 			for (Integer departmentId : serverURLToDepartmentMap.get(serverURL)) {
 				departmentToServerURLMap.put(departmentId, serverURL);
@@ -46,8 +48,9 @@ public final class Utility {
 	public static Map<String, List<Integer>> getServerURLToDepartmentMapping(
 			String filePath) throws FileNotFoundException {
 		XStream xstream = new XStream(new StaxDriver());
-		Map<String, List<Integer>> serverURLToDepartmentMap = (Map<String, List<Integer>>) xstream
-				.fromXML(new FileInputStream(filePath));
+		Map<String, List<Integer>> serverURLToDepartmentMap =
+		    (Map<String, List<Integer>>) xstream.fromXML(
+				    new FileInputStream(filePath));
 		return serverURLToDepartmentMap;
 	}
 }

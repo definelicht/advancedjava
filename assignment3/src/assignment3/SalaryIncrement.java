@@ -3,9 +3,9 @@ package assignment3;
 /**
  * SalaryIncrement represents a record by which a department's salary will be
  * adjusted
- * 
+ *
  * @author bonii
- * 
+ *
  */
 public class SalaryIncrement {
 

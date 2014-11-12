@@ -3,9 +3,9 @@ package assignment3;
 /**
  * NegativeSalaryIncrementException is thrown when salary increment is attempted
  * with negative values
- * 
+ *
  * @author bonii
- * 
+ *
  */
 public class NegativeSalaryIncrementException extends Exception {
 

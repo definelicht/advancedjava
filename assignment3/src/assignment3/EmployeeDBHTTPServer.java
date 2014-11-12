@@ -6,17 +6,19 @@ import java.util.Map;
 
 /**
  * EmployeeDBHTTPServer is the EmployeeDB server which receives client requests
- * 
+ *
  * @author bonii
- * 
+ *
  */
 public class EmployeeDBHTTPServer {
-	private static final String filePath = "/home/bonii/advanced-java/src/assignment3/departmentservermapping.xml";
+
+	private static final String FILE_PATH =
+			System.getProperty("user.dir") + "departmentservermapping.xml";
 
 	public static void main(String[] args) throws Exception {
 
-		Map<String, List<Integer>> serverURLToDepartmentMap = Utility
-				.getServerURLToDepartmentMapping(filePath);
+		Map<String, List<Integer>> serverURLToDepartmentMap =
+		    Utility.getServerURLToDepartmentMapping(FILE_PATH);
 
 		Server myServer = new Server(8080);
 		// Pass the list of departments that this server should handle in the

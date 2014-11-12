@@ -2,9 +2,9 @@ package assignment3;
 
 /**
  * DepartmentNotFoundException is thrown when a department entry does not exist
- * 
+ *
  * @author bonii
- * 
+ *
  */
 public class DepartmentNotFoundException extends Exception {
 
